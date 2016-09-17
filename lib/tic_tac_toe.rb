@@ -24,15 +24,6 @@ class Board
   end
 
   def cols
-    # cols = [[], [], []]
-    # @rows.each do |row|
-    #   row.each_with_index do |mark, col_idx|
-    #     cols[col_idx] << mark
-    #   end
-    # end
-    #
-    # cols
-
     @rows.transpose
   end
 
@@ -94,8 +85,8 @@ class TicTacToe
 
   attr_reader :board, :players, :turn
 
-  def initialize(player1, player2)
-    @board = Board.new
+  def initialize(player1, player2, board = nil)
+    @board = (board.nil? ? Board.new : board)
     @players = { :x => player1, :o => player2 }
     @turn = :x
   end
@@ -108,6 +99,7 @@ class TicTacToe
     if self.board.won?
       winning_player = self.players[self.board.winner]
       puts "#{winning_player.name} won the game!"
+      self.show
     else
       puts "No one wins!"
     end
